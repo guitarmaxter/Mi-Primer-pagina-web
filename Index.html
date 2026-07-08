@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEONVAULT | Tu Mundo Gamer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .title-font { font-family: 'Press Start 2P', cursive; }
+    
+    .neon-cyan { text-shadow: 0 0 10px #22f0ff, 0 0 20px #22f0ff; }
+    .neon-pink { text-shadow: 0 0 10px #ff00aa, 0 0 20px #ff00aa; }
+    
+    .hero-bg {
+      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), 
+                  url('https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?q=80&w=2070');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-hover {
+      transition: all 0.4s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-12px) scale(1.04);
+      box-shadow: 0 0 30px rgba(34, 240, 255, 0.5);
+    }
+
+    html { scroll-behavior: smooth; }
+    img { max-width: 100%; height: auto; display: block; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white">
+
+  <!-- NAVBAR -->
+  <header class="bg-black sticky top-0 z-50 border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-3xl font-bold title-font neon-cyan">NEONVAULT</h1>
+      
+      <nav class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="#inicio" class="hover:text-cyan-400 transition">Inicio</a>
+        <a href="#juegos" class="hover:text-cyan-400 transition">Juegos</a>
+        <a href="#tienda" class="hover:text-cyan-400 transition">Tienda</a>
+        <a href="#proximos" class="hover:text-cyan-400 transition">Próximos</a>
+        <a href="#noticias" class="hover:text-cyan-400 transition">Noticias</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <input type="text" placeholder="Buscar..." 
+               class="bg-zinc-900 border border-cyan-500/50 rounded-full px-5 py-2 text-sm focus:outline-none focus:border-pink-500 w-72">
+        <button onclick="alert('🛒 Carrito abierto (demo)')" class="text-2xl text-cyan-400 hover:text-pink-400 transition">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero-bg h-screen flex items-center relative">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-6xl md:text-7xl font-bold title-font mb-6 neon-pink">BIENVENIDO AL FUTURO</h2>
+      <p class="text-xl mb-10 text-cyan-300">Los mejores juegos • Tienda neon • Comunidad gamer</p>
+      <button onclick="document.getElementById('tienda').scrollIntoView({behavior: 'smooth'})" 
+              class="bg-gradient-to-r from-cyan-400 to-pink-500 text-black font-bold px-12 py-5 rounded-2xl text-xl hover:scale-110 transition">
+        EXPLORAR TIENDA
+      </button>
+    </div>
+  </section>
+
+  <!-- CARRUSEL -->
+  <section class="py-16 bg-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3 text-cyan-400">
+        <i class="fas fa-bolt"></i> DESTACADOS NEÓN
+      </h2>
+      <div id="carousel" class="relative overflow-hidden rounded-3xl shadow-2xl shadow-cyan-500/30">
+        <div id="slides" class="flex transition-transform duration-700"></div>
+        <button onclick="prevSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-pink-600 p-5 rounded-full text-3xl">‹</button>
+        <button onclick="nextSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-pink-600 p-5 rounded-full text-3xl">›</button>
+        <div id="indicators" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JUEGOS POPULARES -->
+  <section id="juegos" class="py-16 max-w-7xl mx-auto px-6">
+    <h2 class="text-4xl font-bold mb-12 text-pink-400">Juegos Populares</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6" id="games-grid"></div>
+  </section>
+
+  <!-- PRÓXIMOS LANZAMIENTOS -->
+  <section id="proximos" class="py-20 bg-gradient-to-b from-zinc-900 to-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-12 text-center neon-cyan">Próximos Lanzamientos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="upcoming-grid"></div>
+    </div>
+  </section>
+
+  <!-- TIENDA -->
+  <section id="tienda" class="py-20 bg-zinc-950">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-4 text-center neon-pink">NEON STORE</h2>
+      <p class="text-center text-cyan-300 mb-12">Ediciones especiales • Merch • Juegos digitales</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="store-grid"></div>
+    </div>
+  </section>
+
+  <!-- NOTICIAS -->
+  <section id="noticias" class="py-20 bg-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-12 text-center neon-cyan">Últimas Noticias</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-zinc-900 p-8 rounded-3xl border border-cyan-500/30">
+          <h3 class="text-2xl font-bold mb-3">GTA VI ya tiene fecha confirmada</h3>
+          <p class="text-gray-400">Rockstar confirma otoño 2026 como ventana de lanzamiento.</p>
+        </div>
+        <div class="bg-zinc-900 p-8 rounded-3xl border border-pink-500/30">
+          <h3 class="text-2xl font-bold mb-3">Nuevo trailer de Doom: The Dark Ages</h3>
+          <p class="text-gray-400">id Software sorprende con gameplay brutal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-black py-16 border-t border-cyan-500/30">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h3 class="title-font text-3xl neon-cyan mb-4">NEONVAULT</h3>
+      <p class="text-gray-400">© 2026 - Hecho con neón y pasión gamer</p>
+    </div>
+  </footer>
+
+  <script>
+    // Imágenes estables y de alta calidad
+    const featured = [
+      { title: "Cyberpunk 2077", image: "https://imgs.search.brave.com/TZ5DCauRROvBVOQ_FBF5Y2JfDU-dFPacCjIa4l2cjHk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly91dmVq/dWVnb3MuY29tL2lt/Zy9jYXJhdHVsYXMv/NTk4MTMvcGVxdWVf/NzE1NzM1X2Zyb250/LmpwZw", year: "2020" },
+      { title: "Black Myth: Wukong", image: "https://imgs.search.brave.com/W_OAkDmydmQOQoBhkrj43MJkQdrCFYdoRX8MjnNss0s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/aW5zdGFudC1nYW1p/bmcuY29tL2ltYWdl/cy9wcm9kdWN0cy83/Njc4LzYxNngzNTMv/YmxhY2stbXl0aC13/dWtvbmctcGMtc3Rl/YW0tY292ZXIuanBn/P3Y9MTc3NzYyMjQw/MA", year: "2024" },
+      { title: "GTA VI", image: "https://imgs.search.brave.com/Vtw1HrRHvQHPzG1erc54OAcvdG_DcweJjgkXhe1m8b0/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9hcmVh/anVnb25lcy5zcG9y/dC5lcy93cC1jb250/ZW50L3VwbG9hZHMv/MjAyMy8xMi9ndGEt/dmktc2VndW5kby10/cmFpbGVyLWN1YW5k/by0zODB4MjEwLmpw/Zy53ZWJw", year: "2026" }
+    ];
+
+    const popularGames = [
+      { title: "Elden Ring", img: "https://imgs.search.brave.com/0R_kuAY27Xvc2H8PqCqJImjuusuc2SAic5qN21PrroI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL00v/TVY1Qk1XTmxNREJp/WXpZdE1XTXlNQzAw/WmpjNUxUbGhNakl0/TWpSbE16Qm1ZbVZr/T0dNMFhrRXlYa0Zx/Y0djQC5qcGc", price: "49.99" },
+      { title: "God of War Ragnarok", img: "https://imgs.search.brave.com/uRNhsikmDbGhejtoes2glQXUJHXrLGogLAMvuVfTqYY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXQuY29t/L3cvZnVsbC9jLzIv/NS8xMzQyMDMtMTky/MHgxMjE5LWRlc2t0/b3AtaGQtZ29kLW9m/LXdhci1yYWduYXJv/ay13YWxscGFwZXIt/aW1hZ2UuanBn", price: "59.99" },
+      { title: "Hades II", img: "https://imgs.search.brave.com/8hu8kilSIWmiw6ijyfJ14kU5wGVYghhXyMfsYTnUOeU/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9zbS5p/Z24uY29tL3QvaWdu/X2xhdGFtL2dhbGxl/cnkvaC9oYWRlcy1p/aS9oYWRlcy1paV9r/ajZ4LjI4MC5qcGc", price: "29.99" },
+      { title: "Starfield", img: "https://imgs.search.brave.com/5Ua4s4ATsjNEWXqkwefE85FK7nhCpnDzJobTv4BFgXc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdG9y/ZS1pbWFnZXMucy1t/aWNyb3NvZnQuY29t/L2ltYWdlL2FwcHMu/NTI4NzAuMTM1Njcz/NDM2NjQyMjQ2NTku/MWViNmZkZjktOGEw/Yi00MzQ0LWExMzUt/YWIxN2RmYTNjNjA5/LjIwZWQxNjQ0LTJj/MDEtNGQ1YS1iNjM2/LTNkNTRhYzk0MWEx/Zj9xPTkwJnc9MzM2/Jmg9MjAw", price: "69.99" },
+      { title: "Baldur's Gate 3", img: "https://imgs.search.brave.com/Ehr6dPv1t-TtutK0JNYnnQ9s3cXN-hmaX-FXpTuiOUI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdG9y/ZS1pbWFnZXMucy1t/aWNyb3NvZnQuY29t/L2ltYWdlL2FwcHMu/NDk3NC4xMzU1MDQ1/OTA1MzYxOTA0MC44/MTYxMDcxMy00YzY0/LTQ3MGMtYjU0My1i/Y2ZmZmZhYTZlYTMu/ZWZiN2M4NDYtMmYz/Mi00YTJkLWIyZDQt/Y2Q4MTA5NzIxMzMy/P3E9OTAmdz0zMzYm/aD0yMDA", price: "39.99" }
+    ];
+
+    const upcoming = [
+      { title: "Doom: The Dark Ages", date: "2025", img: "https://imgs.search.brave.com/-irinFjdrMw2qii8RGyg0Unr9ivSgd7Rig8NawH1AWY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS52YW5kYWwubmV0/L2kvNjQweDM2MC81/LTIwMjUvOS8yMDI1/NTkxODM2MjY1NV8x/LmpwZw", color: "from-red-500 to-orange-500" },
+      { title: "Grand Theft Auto VI", date: "Otoño 2026", img: "https://imgs.search.brave.com/ji6ZH5glI7P28SiQ19_trI3sNUq_d4Kr2mKNY2AG8ps/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL00v/TVY1QlpHRmtZekEx/WldZdFpESTVNeTAw/TWpWbUxXSmlZall0/WldZeE9ESXhORGRq/TmpjMFhrRXlYa0Zx/Y0djQC5qcGc", color: "from-purple-500 to-pink-500" },
+      { title: "Metroid Prime 4", date: "2026", img: "https://imgs.search.brave.com/91GGzg14YKwCgC6Y1h7hGk6_wyA3yiW_xEDuCjD6Oe4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS52YW5kYWwubmV0/L2kvNjQweDM2MC81/LTIwMjYvMjkvMjAy/NjUyOTEwNDE1MTk5/XzEuanBn", color: "from-cyan-400 to-blue-500" }
+    ];
+
+    const storeItems = [
+      { name: "Camiseta Neon Logo", price: "24.99", img: "https://imgs.search.brave.com/mxIzfnupIJfk61QNJiy4zblRygYyKKgnaYddLVgGfL8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudmV4ZWxzLmNv/bS9tZWRpYS91c2Vy/cy8zLzM0MDY3My9y/YXcvMzQwYWU0NjVj/YWEwMDNhYTU4ZDdk/ZjNlYWEyMzQ0OWEt/ZGlzZW5vLWRlLWNh/bWlzZXRhLWRlLW5l/b24tY29uLWxvZ28t/ZWxlY3RyaWNvLXgu/anBn" },
+      { name: "Figura Cyberpunk", price: "89.99", img: "https://imgs.search.brave.com/sVK5ec3smA7fLXgKneP1d4bfJ05mkZxxhRecpji7g1Q/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/XzgxMDg0OS1NTE03/OTE5NTIwMDEzNV8w/OTIwMjQtRS1kYXJr/LWhvcnNlLWNvbWlj/cy1jeWJlcnB1bmst/MjA3Ny1maWd1cmEt/ZGUtcGFuYW0tcGFs/bWVyLndlYnA" },
+      { name: "Control RGB Gamer", price: "59.99", img: "https://imgs.search.brave.com/PTzOV1xzthn-V4H4gqao2SSy40uLFExlYafhg7XQVsA/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFzV1J6YzJscUwu/anBn" },
+      { name: "Hoodie Elden Ring", price: "49.99", img: "https://imgs.search.brave.com/EQburk-gdD0rlb3h8NAhBRcHjXFfXbqfq7wC8tDELv4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9lbGRl/bnJpbmctc2hvcC5i/LWNkbi5uZXQvd3At/Y29udGVudC91cGxv/YWRzLzIwMjMvMDYv/c3NyY29saWdodHdl/aWdodF9ob29kaWVt/ZW5zMTAxMDEwMDFj/NWNhMjdjNmZyb250/c3F1YXJlX3Byb2R1/Y3R4MTAwMC1iZ2Y4/ZjhmOC0xMi00MDB4/NDAwLmpwZw" }
+    ];
+
+    // Renderizado
+    function renderCarousel() {
+      const slides = document.getElementById('slides');
+      const indicators = document.getElementById('indicators');
+      slides.innerHTML = '';
+      indicators.innerHTML = '';
+
+      featured.forEach((game, i) => {
+        slides.innerHTML += `
+          <div class="min-w-full relative">
+            <img src="${game.image}" class="w-full h-[520px] object-cover" alt="${game.title}">
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/80 p-10">
+              <h3 class="text-5xl font-bold neon-cyan">${game.title}</h3>
+              <p class="text-xl text-pink-400">${game.year}</p>
+            </div>
+          </div>`;
+        indicators.innerHTML += `<div onclick="goToSlide(${i})" class="w-4 h-4 rounded-full cursor-pointer transition-all ${i===0 ? 'bg-pink-500 scale-125' : 'bg-white/40'}"></div>`;
+      });
+    }
+
+    function renderGames() {
+      const container = document.getElementById('games-grid');
+      container.innerHTML = popularGames.map(g => `
+        <div class="card-hover bg-zinc-900 rounded-2xl overflow-hidden border border-cyan-500/20">
+          <img src="${g.img}" class="w-full h-64 object-cover" alt="${g.title}">
+          <div class="p-4">
+            <p class="font-semibold">${g.title}</p>
+            <p class="text-cyan-400">$${g.price}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderUpcoming() {
+      const container = document.getElementById('upcoming-grid');
+      container.innerHTML = upcoming.map(u => `
+        <div class="card-hover bg-zinc-900 rounded-3xl overflow-hidden border border-pink-500/30">
+          <img src="${u.img}" class="w-full h-60 object-cover" alt="${u.title}">
+          <div class="p-6">
+            <p class="text-xl font-bold">${u.title}</p>
+            <p class="text-cyan-400">Lanzamiento: ${u.date}</p>
+            <button class="mt-4 w-full bg-gradient-to-r from-pink-500 to-cyan-400 text-black font-bold py-3 rounded-xl">Reservar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderStore() {
+      const container = document.getElementById('store-grid');
+      container.innerHTML = storeItems.map(item => `
+        <div class="card-hover bg-zinc-900 rounded-3xl overflow-hidden border border-cyan-400/30">
+          <img src="${item.img}" class="w-full h-64 object-cover" alt="${item.name}">
+          <div class="p-6">
+            <p class="font-semibold text-lg">${item.name}</p>
+            <p class="text-2xl text-pink-400 font-bold">$${item.price}</p>
+            <button onclick="alert('✅ ${item.name} añadido al carrito')" 
+                    class="mt-4 w-full bg-white text-black font-bold py-3 rounded-2xl hover:bg-cyan-400 transition">
+              Añadir al carrito
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Carrusel
+    let current = 0;
+    function updateSlide() {
+      document.getElementById('slides').style.transform = `translateX(-${current * 100}%)`;
+    }
+    function nextSlide() { current = (current + 1) % 3; updateSlide(); }
+    function prevSlide() { current = (current - 1 + 3) % 3; updateSlide(); }
+    function goToSlide(n) { current = n; updateSlide(); }
+
+    // Inicializar
+    window.onload = () => {
+      renderCarousel();
+      renderGames();
+      renderUpcoming();
+      renderStore();
+      setInterval(nextSlide, 4500);
+    };
+  </script>
+</body>
+</html>
